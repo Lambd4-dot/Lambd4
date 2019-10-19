@@ -18,7 +18,7 @@ class Exemple1 extends Phaser.Scene {
     this.load.image('MetalScrap','assets/MetalPaint.png')
 
   }
-
+//commment
 
   create(){
 
