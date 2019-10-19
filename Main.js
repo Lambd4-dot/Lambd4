@@ -201,25 +201,28 @@ class Exemple1 extends Phaser.Scene {
 
 
   rocketOrbitRadius = 100;
+  rocketOrbitPeriod = 10000;
   rocketPath = new Phaser.Curves.Path();
-  rocketPath.add(new Phaser.Curves.Ellipse(650, 300, rocketOrbitRadius));
+  rocketPath.add(new Phaser.Curves.Ellipse(645, 290, rocketOrbitRadius));
 
-  var rocket = this.add.follower(rocketPath, 0, 0, 'rocket');
+  rocket = this.add.follower(rocketPath, 0, 0, 'rocket');
 
   rocket.startFollow({
-    duration: 10000,
+    duration: rocketOrbitPeriod,
     repeat: -1,
-    rotateToPath: true,
+    rotateToPath: false,
     verticalAdjust: true
   });
+
+  rocket.setRotateToPath(true, 90);
 
   cursors = this.input.keyboard.createCursorKeys();
 
   }
 
   update(){
-    rocketOrbitRadius = updateRocketOrbit(rocketPath,rocketOrbitRadius);
-    console.log(rocketOrbitRadius);
+    [rocketOrbitRadius, rocketOrbitPeriod] = updateRocketOrbit(rocketPath,rocketOrbitRadius,rocketOrbitPeriod)
+    console.log(rocket);
   }
 
 

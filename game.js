@@ -12,10 +12,12 @@ var config = {
   scene: [Exemple1] // Exemple2, Exemple3]
 }
 
+var rocket
 var rocketFollower;
 var rocketPath;
 var rocketGraphics;
 var rocketOrbitRadius;
+var rocketOrbitPeriod;
 
 var cursors;
 
