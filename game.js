@@ -1,7 +1,7 @@
 var config = {
   type: Phaser.AUTO,
-  width:1400,
-  height: 600,
+  width:1600,
+  height: 900,
   physics: {
       default: 'arcade',
       arcade: {
@@ -12,11 +12,20 @@ var config = {
   scene: [Exemple1] // Exemple2, Exemple3]
 }
 
+var rocket
 var rocketFollower;
 var rocketPath;
 var rocketGraphics;
 var rocketOrbitRadius;
+var rocketOrbitPeriod;
 
 var cursors;
+
+var group;
+var player;
+var player1;
+var player2;
+
+var info;
 
 var game = new Phaser.Game(config);
