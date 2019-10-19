@@ -9,7 +9,14 @@ var config = {
       }
 
   },
-  scene: [Main] // Exemple2, Exemple3]
+  scene: [Exemple1] // Exemple2, Exemple3]
 }
+
+var rocketFollower;
+var rocketPath;
+var rocketGraphics;
+var rocketOrbitRadius;
+
+var cursors;
 
 var game = new Phaser.Game(config);

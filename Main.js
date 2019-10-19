@@ -16,6 +16,7 @@ class Exemple1 extends Phaser.Scene {
     this.load.image('satellite2','assets/Tess_nasa.png')
     this.load.image('BallDeb','assets/BallDebris.png')
     this.load.image('MetalScrap','assets/MetalPaint.png')
+    this.load.image('rocket','assets/Rocket1_1.png')
 
   }
 //commment
@@ -30,7 +31,7 @@ class Exemple1 extends Phaser.Scene {
     //this.image = this.add.image(650, 300, 'earth');
     var myEarth = this.add.sprite(650,300,'earth');
     myEarth.setScale(0.55);
-
+/*
     var backGrid1 = this.add.image(650,100,'gridup');
     backGrid1.setScale(0.19);
 
@@ -52,7 +53,7 @@ class Exemple1 extends Phaser.Scene {
 
     //var square1 = this.add.image(555,63, 'square1')
     //square1.setScale(0.165);
-
+*/
     var sat1 = this.add.image(500,44, 'satellite1')
     sat1.setScale(0.165);
 
@@ -65,7 +66,7 @@ class Exemple1 extends Phaser.Scene {
     var metalP = this.add.image(555,63, 'MetalScrap')
     metalP.setScale(0.25);
 
-
+/*
     //funzione per coprire la grigliaNord
 
     var square = this.add.image(510,412, 'square1')
@@ -184,7 +185,7 @@ class Exemple1 extends Phaser.Scene {
 
   }
 
-
+*/
     this.input.on('gameobjectup', function (pointer, gameObject)
    {
        gameObject.emit('clicked', gameObject);
@@ -198,14 +199,27 @@ class Exemple1 extends Phaser.Scene {
        square.setVisible(false);
    }
 
-var rocket = this.add.sprite(700,300,'')
 
+  rocketOrbitRadius = 100;
+  rocketPath = new Phaser.Curves.Path();
+  rocketPath.add(new Phaser.Curves.Ellipse(650, 300, rocketOrbitRadius));
 
+  var rocket = this.add.follower(rocketPath, 0, 0, 'rocket');
+
+  rocket.startFollow({
+    duration: 10000,
+    repeat: -1,
+    rotateToPath: true,
+    verticalAdjust: true
+  });
+
+  cursors = this.input.keyboard.createCursorKeys();
 
   }
 
   update(){
-    updateRocketOrbit();
+    rocketOrbitRadius = updateRocketOrbit(rocketPath,rocketOrbitRadius);
+    console.log(rocketOrbitRadius);
   }
 
 
