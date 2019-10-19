@@ -64,7 +64,7 @@ class Exemple1 extends Phaser.Scene {
     ball.setScale(0.165);
 
     var metalP = this.add.image(555,63, 'MetalScrap')
-    metalP.setScale(0.25);
+    metalP.setScale(0.165);
 
 /*
     //funzione per coprire la grigliaNord
@@ -201,8 +201,8 @@ class Exemple1 extends Phaser.Scene {
 
 
   rocketOrbitRadius = 100;
-  rocketOrbitPeriod = 10000;
-  rocketPath = new Phaser.Curves.Path();
+  rocketOrbitPeriod = 1000;
+  /*rocketPath = new Phaser.Curves.Path();
   rocketPath.add(new Phaser.Curves.Ellipse(645, 290, rocketOrbitRadius));
 
   rocket = this.add.follower(rocketPath, 0, 0, 'rocket');
@@ -215,14 +215,53 @@ class Exemple1 extends Phaser.Scene {
   });
 
   rocket.setRotateToPath(true, 90);
+*/
+  
+  info = this.add.text(10, 10, 'toto', { font: '100px 8bit-wonder', fill: '#00FF00' });
+
+  rocket = this.add.group();
+  rocket.create(750,290,'rocket',0);
+  Phaser.Actions.Rotate(rocket.getChildren(), 3.1415);
 
   cursors = this.input.keyboard.createCursorKeys();
 
+  group = this.add.group();
+  player = this.add.group();
+  player1 = this.add.group();
+  player2 = this.add.group();
+
+  for (var i = 0; i <10 ; i++)
+  {
+      group.create(Phaser.Math.Between(150,750), Phaser.Math.Between(70,220), 'satellite1', Phaser.Math.Between(0,4)).setInteractive();
+      player.create(Phaser.Math.Between(150,750), Phaser.Math.Between(520,700), 'satellite2', Phaser.Math.Between(0,4)).setInteractive();
+      player1.create(Phaser.Math.Between(100,300), Phaser.Math.Between(100,600), 'MetalScrap', Phaser.Math.Between(0,4)).setInteractive();
+      player2.create(Phaser.Math.Between(600,800), Phaser.Math.Between(100,600), 'BallDeb', Phaser.Math.Between(0,4)).setInteractive();
+      Phaser.Actions.RotateAround(group.getChildren(), { x: 645, y: 290 }, Phaser.Math.Between(0.001,3.14));
+      Phaser.Actions.RotateAround(player.getChildren(), { x: 645, y: 290 }, Phaser.Math.Between(0.001,3.14));
+      Phaser.Actions.RotateAround(player1.getChildren(), { x: 645, y: 290 }, Phaser.Math.Between(0.001,3.14));
+      Phaser.Actions.RotateAround(player2.getChildren(), { x: 645, y: 290 }, Phaser.Math.Between(0.001,3.14));
   }
+}
+
+
 
   update(){
-    [rocketOrbitRadius, rocketOrbitPeriod] = updateRocketOrbit(rocketPath,rocketOrbitRadius,rocketOrbitPeriod)
-    console.log(rocket);
+    //[rocketOrbitRadius, rocketOrbitPeriod] = updateRocketOrbit(rocketPath,rocketOrbitRadius,rocketOrbitPeriod)
+    [rocketOrbitRadius, rocketOrbitPeriod] = updateRocketOrbit(rocketOrbitRadius,rocketOrbitPeriod)
+    //console.log(rocket);
+    Phaser.Actions.RotateAroundDistance(rocket.getChildren(), { x: 645, y: 290 }, (2*3.1415)/rocketOrbitPeriod, rocketOrbitRadius);
+    Phaser.Actions.Rotate(rocket.getChildren(), (2*3.1415)/rocketOrbitPeriod, (2*3.1415)/rocketOrbitPeriod);
+    //Phaser.Actions.Rotate(rocket.getChildren(), -(2*3.1415)/rocketOrbitPeriod, -(2*3.1415)/rocketOrbitPeriod);
+
+    Phaser.Actions.RotateAround(group.getChildren(), { x: 645, y: 290 }, 0.003);
+    Phaser.Actions.RotateAround(player.getChildren(), { x: 645, y: 290 }, 0.003);
+    Phaser.Actions.RotateAround(player1.getChildren(), { x: 645, y: 290 }, 0.002);
+    Phaser.Actions.RotateAround(player2.getChildren(), { x: 645, y: 290 }, 0.002);
+
+    group.getChildren()[0].on('pointerdown', function (pointer) {
+      info.setText('This is a debris.');
+    });
+
   }
 
 
