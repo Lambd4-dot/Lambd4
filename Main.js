@@ -17,6 +17,7 @@ class Exemple1 extends Phaser.Scene {
     this.load.image('BallDeb','assets/BallDebris.png')
     this.load.image('MetalScrap','assets/MetalPaint.png')
     this.load.image('rocket','assets/Rocket1_1.png')
+    this.load.spritesheet('explosion', 'assets/GrayEx3.png', { frameWidth: 40, frameHeight: 40, endFrame: 11 });
 
   }
 //commment
@@ -152,9 +153,10 @@ class Exemple1 extends Phaser.Scene {
          }
          xW = xW - 20.5
 
-       }
+       }*/
 
 
+/*
 //random spawn for Metaldebris num 20
   for (var k = 0; k < 8 ; k++){
 
@@ -204,24 +206,45 @@ class Exemple1 extends Phaser.Scene {
   rocketPath = new Phaser.Curves.Path();
   rocketPath.add(new Phaser.Curves.Ellipse(650, 300, rocketOrbitRadius));
 
-  var rocket = this.add.follower(rocketPath, 0, 0, 'rocket');
+  var rocket = this.add.image(300,300,'rocket');
 
-  rocket.startFollow({
-    duration: 10000,
-    repeat: -1,
-    rotateToPath: true,
-    verticalAdjust: true
-  });
 
-  cursors = this.input.keyboard.createCursorKeys();
+  
+
+
+
+   //time for animation
+
+    var config = {
+        key: 'explodeAnimation',
+        frames: this.anims.generateFrameNumbers('explosion', { start: 0, end: 11, first: 11 }),
+        frameRate: 20,
+        repeat: 0
+     };
+
+     this.anims.create(config);
+
+
+
+     //hitfunction
+     var ex1 = this.add.sprite(300,300,'BallDeb');
+     this.physics.add.collider(rocket, ex1, hitSat, null, this);
+
+     function hitSat (rocket, ex1){
+       rocket.setTint(0xff0000);
+       rocket.play('explodeAnimation')
+       rocket.disableBody(true,true);
+     }
+
+
+
+     this.add.sprite(300,300,'BallDeb').play('explodeAnimation');
+
+
+
 
   }
 
   update(){
-    rocketOrbitRadius = updateRocketOrbit(rocketPath,rocketOrbitRadius);
-    console.log(rocketOrbitRadius);
-  }
-
-
 
 }
