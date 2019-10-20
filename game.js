@@ -25,6 +25,8 @@ var group;
 var player;
 var player1;
 var player2;
+var player3;
+var Genesis;
 
 var infoTitle;
 var infoData;

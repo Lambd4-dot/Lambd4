@@ -9,13 +9,15 @@ class Exemple1 extends Phaser.Scene {
     this.load.image('earth','assets/Earth_big_1.png')
     this.load.image('satellite1','assets/SatelliteLandObs.png')
     this.load.image('satellite2','assets/Tess_nasa.png')
-    this.load.image('BallDeb','assets/BallDebris.png')
-    this.load.image('MetalScrap','assets/MetalPaint.png')
+    this.load.image('BallDeb','assets/BallDeb_resize.png')
+    this.load.image('MetalScrap','assets/MetalScrap_res.png')
+    this.load.image('AlScrap','assets/AlumDebr1.png')
+    this.load.image('Genesis','assets/Genesis2.png')
     this.load.image('rocket','assets/Rocket1_1.png')
     this.load.spritesheet('explosion', 'assets/GrayEx3.png', { frameWidth: 40, frameHeight: 40, endFrame: 11 });
-*
     this.load.image('astronaut','assets/astronout_2--pixilart.png')
-    this.load.image('astronaut2','assets/miniastronout-pixilart.png')
+    this.load.image('mars','assets/mars.png')
+    this.load.image('logo1','assets/logo1.png')
     this.load.image('NASA','Logos/Square White.png')
   }
 //commment
@@ -31,8 +33,14 @@ class Exemple1 extends Phaser.Scene {
     var myEarth = this.add.sprite(650,300,'earth');
     myEarth.setScale(0.55);
 
-    var NASA = this.add.sprite(1440,650,'NASA');
+    var mars = this.add.sprite(1100,500,'mars');
+    mars.setScale(0.35)
+
+    var NASA = this.add.sprite(1440,100,'NASA');
     NASA.setScale(0.2);
+
+    var teamLogo = this.add.sprite(1440,700,'logo1');
+    teamLogo.setScale(2);
 /*
     var backGrid1 = this.add.image(650,100,'gridup');
     backGrid1.setScale(0.19);
@@ -55,7 +63,7 @@ class Exemple1 extends Phaser.Scene {
 
     //var square1 = this.add.image(555,63, 'square1')
     //square1.setScale(0.165);
-*/
+
     var sat1 = this.add.image(500,44, 'satellite1')
     sat1.setScale(0.165);
 
@@ -68,9 +76,10 @@ class Exemple1 extends Phaser.Scene {
     var metalP = this.add.image(555,63, 'MetalScrap')
     metalP.setScale(0.165);
 
+    var AlP = this.add.image(555,63, 'AlScrap')
+    metalP.setScale(0.065);
 
 
-/*
     //funzione per coprire la grigliaNord
 
     var square = this.add.image(510,412, 'square1')
@@ -232,29 +241,32 @@ class Exemple1 extends Phaser.Scene {
   rocket.create(750,290,'rocket',0);
   Phaser.Actions.Rotate(rocket.getChildren(), 3.1415);
 
-
   cursors = this.input.keyboard.createCursorKeys();
 
   group = this.add.group();
   player = this.add.group();
   player1 = this.add.group();
   player2 = this.add.group();
+  player3 = this.add.group();
+  Genesis = this.add.group();
+
+  Genesis.create(Phaser.Math.Between(150,750), Phaser.Math.Between(70,220), 'Genesis', Phaser.Math.Between(0,4)).setInteractive();
 
   for (var i = 0; i <10 ; i++)
   {
-      group.create(Phaser.Math.Between(150,750), Phaser.Math.Between(70,220), 'satellite1', Phaser.Math.Between(0,4)).setInteractive();
-      player.create(Phaser.Math.Between(150,750), Phaser.Math.Between(520,700), 'satellite2', Phaser.Math.Between(0,4)).setInteractive();
-      player1.create(Phaser.Math.Between(100,300), Phaser.Math.Between(100,600), 'MetalScrap', Phaser.Math.Between(0,4)).setInteractive();
-      player2.create(Phaser.Math.Between(600,800), Phaser.Math.Between(100,600), 'BallDeb', Phaser.Math.Between(0,4)).setInteractive();
+      group.create(Phaser.Math.Between(150,650), Phaser.Math.Between(70,220), 'satellite1', Phaser.Math.Between(0,4)).setInteractive();
+      player.create(Phaser.Math.Between(150,650), Phaser.Math.Between(520,700), 'satellite2', Phaser.Math.Between(0,4)).setInteractive();
+      player1.create(Phaser.Math.Between(100,300), Phaser.Math.Between(400,600), 'MetalScrap', Phaser.Math.Between(0,4)).setInteractive();
+      player2.create(Phaser.Math.Between(670,800), Phaser.Math.Between(100,200), 'BallDeb', Phaser.Math.Between(0,4)).setInteractive();
+      player3.create(Phaser.Math.Between(660,800), Phaser.Math.Between(400,600), 'AlScrap', Phaser.Math.Between(0,4)).setInteractive();
       Phaser.Actions.RotateAround(group.getChildren(), { x: 645, y: 290 }, Phaser.Math.Between(0.001,3.14));
       Phaser.Actions.RotateAround(player.getChildren(), { x: 645, y: 290 }, Phaser.Math.Between(0.001,3.14));
       Phaser.Actions.RotateAround(player1.getChildren(), { x: 645, y: 290 }, Phaser.Math.Between(0.001,3.14));
       Phaser.Actions.RotateAround(player2.getChildren(), { x: 645, y: 290 }, Phaser.Math.Between(0.001,3.14));
+      Phaser.Actions.RotateAround(player3.getChildren(), { x: 645, y: 290 }, Phaser.Math.Between(0.001,3.14));
   }
 
   //time for animation
-
-
 
   var config = {
       key: 'explodeAnimation',
@@ -364,25 +376,29 @@ class Exemple1 extends Phaser.Scene {
     Phaser.Actions.RotateAround(player.getChildren(), { x: 645, y: 290 }, 0.003);
     Phaser.Actions.RotateAround(player1.getChildren(), { x: 645, y: 290 }, 0.002);
     Phaser.Actions.RotateAround(player2.getChildren(), { x: 645, y: 290 }, 0.002);
+    Phaser.Actions.RotateAround(player3.getChildren(), { x: 645, y: 290 }, 0.002);
+    Phaser.Actions.RotateAround(Genesis.getChildren(), { x: 645, y: 290 }, 0.002);
 
-    var selectedSatellites1 = group.getChildren()
+    var selectedSatellites1 = group.getChildren();
     for (var i = selectedSatellites1.length - 1; i >= 0; i--) {
       selectedSatellites1[i].on('pointerdown', function (pointer) {
         infoTitle.setText('Data')
         infoData.setText([
-          'Debris type: ' + 'Satellite debris',
+          'Debris type: ' + 'Retired satellite',
           'Dimensions: ' + '36cm x 56cm',
           'Mass: ' + '56kg',
           'Average speed: ' + '7600m/s',
           'Materials: ' + 'aluminum, nickel',
-          'Orbit: ' + 'Low Earth Orbit (LEO)'
+          'Orbit: ' + 'Low Earth Orbit (LEO)',
+          'Estimated profit: ' + '$ or 0*',
+          '*not profitable if it re-entries' 
         ]);
         infoTrivia.setPosition(40, 630, 0);
         infoTrivia.setText([
-          '- The debris dimensions range from',
-          'a few millimeters up to a meter.',
-          '- NASA estimates at 500,000 the number',
-          'of debris measuring approx. 1 cm.',
+          '- A retired satellite is a satellite',
+          'whose mission is over. Since a few years',
+          'ago, satellite operators have to prepare',
+          'a retirement strategy (graveyard orbit or re-entry).',
           '- The Low Earth Orbit ranges from 300',
           "to 2000km above the Earth's surface. ",
           "It is where we find most of spatial debris.",
@@ -391,7 +407,113 @@ class Exemple1 extends Phaser.Scene {
       });
     }
 
+    var selectedSatellites1 = player.getChildren()
+    for (var i = selectedSatellites1.length - 1; i >= 0; i--) {
+      selectedSatellites1[i].on('pointerdown', function (pointer) {
+        infoTitle.setText('Data')
+        infoData.setText([
+          'Debris type: ' + 'Broken satellite',
+          'Dimensions: ' + '36cm x 56cm',
+          'Mass: ' + '56kg',
+          'Average speed: ' + '7600m/s',
+          'Materials: ' + 'aluminum, nickel',
+          'Orbit: ' + 'Low Earth Orbit (LEO)',
+          'Estimated value: depends of the materials'
+        ]);
+        infoTrivia.setPosition(40, 630, 0);
+        infoTrivia.setText([
+          '- A broken satellite is damaged and not',
+          "usable anymore. It's pure rubbish",
+          '- ESA estimates at 20,000 the number',
+          'of broken satellites (size > 10 cm).',
+          '- The Low Earth Orbit ranges from 300',
+          "to 2000km above the Earth's surface. ",
+          "It is where we find most of spatial debris.",
+          'If you want to know more about space debris, click on me!'
+        ]);
+      });
+    }
 
+    var selectedSatellites1 = player1.getChildren()
+    for (var i = selectedSatellites1.length - 1; i >= 0; i--) {
+      selectedSatellites1[i].on('pointerdown', function (pointer) {
+        infoTitle.setText('Data')
+        infoData.setText([
+          'Debris type: ' + 'Other metal scrap',
+          'Dimensions: ' + '1cm',
+          'Mass: ' + '10g',
+          'Average speed: ' + '7600m/s',
+          'Materials: ' + 'titanium, nickel',
+          'Orbit: ' + 'Low Earth Orbit (LEO)',
+          'Estimated value: depends of the metal'
+        ]);
+        infoTrivia.setPosition(40, 630, 0);
+        infoTrivia.setText([
+          '- The debris dimensions range from',
+          'a few millimeters up to a meter.',
+          '- ESA estimates at 166,000,000 the number',
+          'of debris measuring less than. 1 cm.',
+          '- The Low Earth Orbit ranges from 300',
+          "to 2000km above the Earth's surface. ",
+          "It is where we find most of spatial debris.",
+          'If you want to know more about space debris, click on me!'
+        ]);
+      });
+    }
+
+    var selectedSatellites1 = player2.getChildren()
+    for (var i = selectedSatellites1.length - 1; i >= 0; i--) {
+      selectedSatellites1[i].on('pointerdown', function (pointer) {
+        infoTitle.setText('Data')
+        infoData.setText([
+          'Debris type: ' + 'Circuits, Solar panels...',
+          'Dimensions: ' + '1-10cm',
+          'Mass: ' + '<1kg',
+          'Average speed: ' + '7600m/s',
+          'Material: ' + 'various',
+          'Orbit: ' + 'Low Earth Orbit (LEO)',
+          'Estimated value: not much'
+        ]);
+        infoTrivia.setPosition(40, 630, 0);
+        infoTrivia.setText([
+          '- The debris dimensions range from',
+          'a few millimeters up to 10 cm.',
+          '- ESA estimates at 750,000 the number',
+          'of debris measuring from 1 to 10 cm.',
+          '- The Low Earth Orbit ranges from 300',
+          "to 2000km above the Earth's surface. ",
+          "It is where we find most of spatial debris.",
+          'If you want to know more about space debris, click on me!'
+        ]);
+      });
+    }
+
+    var selectedSatellites1 = player3.getChildren()
+    for (var i = selectedSatellites1.length - 1; i >= 0; i--) {
+      selectedSatellites1[i].on('pointerdown', function (pointer) {
+        infoTitle.setText('Data')
+        infoData.setText([
+          'Debris type: ' + 'Aluminum scrap',
+          'Dimensions: ' + '1cm',
+          'Mass: ' + '10g',
+          'Average speed: ' + '7600m/s',
+          'Material: ' + 'aluminum',
+          'Orbit: ' + 'Low Earth Orbit (LEO)',
+          'Estimated value: $1.74/kg'
+        ]);
+        infoTrivia.setPosition(40, 630, 0);
+        infoTrivia.setText([
+          '- The debris dimensions range from',
+          'a few millimeters up to 10 cm.',
+          '- ESA estimates at 166,000,000 the number',
+          'of debris measuring less than 1 cm.',
+          '- The Low Earth Orbit ranges from 300',
+          "to 2000km above the Earth's surface. ",
+          "It is where we find most of spatial debris.",
+          'If you want to know more about space debris, click on me!'
+        ]);
+      });
+    }
 
   }
 
