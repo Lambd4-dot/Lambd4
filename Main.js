@@ -12,11 +12,13 @@ class Exemple1 extends Phaser.Scene {
     this.load.image('BallDeb','assets/BallDebris.png')
     this.load.image('MetalScrap','assets/MetalPaint.png')
     this.load.image('rocket','assets/Rocket1_1.png')
+    this.load.spritesheet('explosion', 'assets/GrayEx3.png', { frameWidth: 40, frameHeight: 40, endFrame: 11 });
+*
     this.load.image('astronaut','assets/astronout_2--pixilart.png')
     this.load.image('astronaut2','assets/miniastronout-pixilart.png')
     this.load.image('NASA','Logos/Square White.png')
   }
-
+//commment
 
   create(){
 
@@ -154,9 +156,10 @@ class Exemple1 extends Phaser.Scene {
          }
          xW = xW - 20.5
 
-       }
+       }*/
 
 
+/*
 //random spawn for Metaldebris num 20
   for (var k = 0; k < 8 ; k++){
 
@@ -218,7 +221,6 @@ class Exemple1 extends Phaser.Scene {
   rocket.setRotateToPath(true, 90);
 */
   
-  //info = this.add.text(10, 10, 'toto', { font: '100px 8bit-wonder', fill: '#00FF00' });
   infoTitle = this.add.text(10, 10, '', { font: '30px Courier', fill: '#00FF00' });
   infoData = this.add.text(10, 45, '', { font: '16px Courier', fill: '#00FF00' });
   infoTrivia = this.add.text(40, 725, ['Click on a debris to get information on it.','If you want to know more about space debris, click on me!'], { font: '16px Courier', fill: '#00FF00' });
@@ -229,6 +231,7 @@ class Exemple1 extends Phaser.Scene {
   rocket = this.add.group();
   rocket.create(750,290,'rocket',0);
   Phaser.Actions.Rotate(rocket.getChildren(), 3.1415);
+
 
   cursors = this.input.keyboard.createCursorKeys();
 
@@ -248,6 +251,73 @@ class Exemple1 extends Phaser.Scene {
       Phaser.Actions.RotateAround(player1.getChildren(), { x: 645, y: 290 }, Phaser.Math.Between(0.001,3.14));
       Phaser.Actions.RotateAround(player2.getChildren(), { x: 645, y: 290 }, Phaser.Math.Between(0.001,3.14));
   }
+
+  //time for animation
+
+
+
+  var config = {
+      key: 'explodeAnimation',
+      frames: this.anims.generateFrameNumbers('explosion', { start: 0, end: 11, first: 11 }),
+      frameRate: 11,
+      repeat: 0
+   };
+
+   this.anims.create(config);
+
+   //hitfunction
+   var ex1 = this.add.sprite(300,300,'BallDeb');
+   ex1.setTint(0xff0000);
+   ex1.setInteractive();
+
+   var ex2 = this.add.sprite(Phaser.Math.Between(150,750),Phaser.Math.Between(300,600),'BallDeb');
+   ex2.setTint(0xff0000);
+   ex2.setInteractive();
+
+   var ex3 = this.add.sprite(Phaser.Math.Between(150,750),Phaser.Math.Between(300,600),'BallDeb');
+   ex3.setTint(0xff0000);
+   ex3.setInteractive();
+
+   var ex4 = this.add.sprite(900,400,'BallDeb');
+   ex4.setTint(0xff0000);
+   ex4.setInteractive();
+
+   var ex5 = this.add.sprite(800,100,'BallDeb');
+   ex5.setTint(0xff0000);
+   ex5.setInteractive();
+
+
+   this.input.keyboard.on('keydown_SPACE', function (event) {
+
+        ex5.play('explodeAnimation')
+
+    });
+
+    this.input.keyboard.on('keydown_C', function (event) {
+
+         ex4.destroy()
+
+     });
+
+     this.input.keyboard.on('keydown_D', function (event) {
+
+          rocket.getChildren()[0].play('explodeAnimation')
+      });
+
+
+
+       //this.physics.add.collider(rocket, group);
+     //this.physics.add.collider(rocket ,player1);
+
+
+
+
+ /*function hitSat (rocket, ex1){
+
+   rocket.getChildren()[0].play('explodeAnimation');
+   rocket.getChildren()[0].disableBody(true,true);
+ };*/
+
 
 /*
   //Game Over message
@@ -284,7 +354,7 @@ class Exemple1 extends Phaser.Scene {
 
   update(){
     //[rocketOrbitRadius, rocketOrbitPeriod] = updateRocketOrbit(rocketPath,rocketOrbitRadius,rocketOrbitPeriod)
-    [rocketOrbitRadius, rocketOrbitPeriod] = updateRocketOrbit(rocketOrbitRadius,rocketOrbitPeriod)
+    [rocketOrbitRadius, rocketOrbitPeriod] = updateRocketOrbit(rocketOrbitRadius,rocketOrbitPeriod);
     //console.log(rocket);
     Phaser.Actions.RotateAroundDistance(rocket.getChildren(), { x: 645, y: 290 }, (2*3.1415)/rocketOrbitPeriod, rocketOrbitRadius);
     Phaser.Actions.Rotate(rocket.getChildren(), (2*3.1415)/rocketOrbitPeriod, (2*3.1415)/rocketOrbitPeriod);
@@ -320,6 +390,8 @@ class Exemple1 extends Phaser.Scene {
         ]);
       });
     }
+
+
 
   }
 
