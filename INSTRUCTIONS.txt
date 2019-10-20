@@ -1,0 +1,8 @@
+Create a simple php server
+1. Install php
+2. Open a cmd window
+4. Navigate to the Lambd4 folder (cd)
+5. Type: 'php -S localhost:4000'
+
+Launch the game
+1. Open a web browser and go to 'localhost:4000'
