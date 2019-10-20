@@ -218,14 +218,14 @@ class Exemple1 extends Phaser.Scene {
 
   rocket.setRotateToPath(true, 90);
 */
-  
+
   info = this.add.text(10, 10, 'toto', { font: '100px 8bit-wonder', fill: '#00FF00' });
 
   rocket = this.add.group();
   rocket.create(750,290,'rocket',0);
   Phaser.Actions.Rotate(rocket.getChildren(), 3.1415);
 
-  
+
   cursors = this.input.keyboard.createCursorKeys();
 
   group = this.add.group();
@@ -244,13 +244,80 @@ class Exemple1 extends Phaser.Scene {
       Phaser.Actions.RotateAround(player1.getChildren(), { x: 645, y: 290 }, Phaser.Math.Between(0.001,3.14));
       Phaser.Actions.RotateAround(player2.getChildren(), { x: 645, y: 290 }, Phaser.Math.Between(0.001,3.14));
   }
+
+  //time for animation
+
+
+
+  var config = {
+      key: 'explodeAnimation',
+      frames: this.anims.generateFrameNumbers('explosion', { start: 0, end: 11, first: 11 }),
+      frameRate: 11,
+      repeat: 0
+   };
+
+   this.anims.create(config);
+
+   //hitfunction
+   var ex1 = this.add.sprite(300,300,'BallDeb');
+   ex1.setTint(0xff0000);
+   ex1.setInteractive();
+
+   var ex2 = this.add.sprite(Phaser.Math.Between(150,750),Phaser.Math.Between(300,600),'BallDeb');
+   ex2.setTint(0xff0000);
+   ex2.setInteractive();
+
+   var ex3 = this.add.sprite(Phaser.Math.Between(150,750),Phaser.Math.Between(300,600),'BallDeb');
+   ex3.setTint(0xff0000);
+   ex3.setInteractive();
+
+   var ex4 = this.add.sprite(900,400,'BallDeb');
+   ex4.setTint(0xff0000);
+   ex4.setInteractive();
+
+   var ex5 = this.add.sprite(800,100,'BallDeb');
+   ex5.setTint(0xff0000);
+   ex5.setInteractive();
+
+
+   this.input.keyboard.on('keydown_SPACE', function (event) {
+
+        ex5.play('explodeAnimation')
+
+    });
+
+    this.input.keyboard.on('keydown_C', function (event) {
+
+         ex4.destroy()
+
+     });
+
+     this.input.keyboard.on('keydown_D', function (event) {
+
+          rocket.getChildren()[0].play('explodeAnimation')
+      });
+
+
+
+       //this.physics.add.collider(rocket, group);
+     //this.physics.add.collider(rocket ,player1);
+
+
+
+
+ /*function hitSat (rocket, ex1){
+
+   rocket.getChildren()[0].play('explodeAnimation');
+   rocket.getChildren()[0].disableBody(true,true);
+ };*/
+
 }
 
 
 
-
+  update(){
     //[rocketOrbitRadius, rocketOrbitPeriod] = updateRocketOrbit(rocketPath,rocketOrbitRadius,rocketOrbitPeriod)
-    [rocketOrbitRadius, rocketOrbitPeriod] = updateRocketOrbit(rocketOrbitRadius,rocketOrbitPeriod)
+    [rocketOrbitRadius, rocketOrbitPeriod] = updateRocketOrbit(rocketOrbitRadius,rocketOrbitPeriod);
     //console.log(rocket);
     Phaser.Actions.RotateAroundDistance(rocket.getChildren(), { x: 645, y: 290 }, (2*3.1415)/rocketOrbitPeriod, rocketOrbitRadius);
     Phaser.Actions.Rotate(rocket.getChildren(), (2*3.1415)/rocketOrbitPeriod, (2*3.1415)/rocketOrbitPeriod);
@@ -266,36 +333,10 @@ class Exemple1 extends Phaser.Scene {
     });
 
 
-   //time for animation
-
-    var config = {
-        key: 'explodeAnimation',
-        frames: this.anims.generateFrameNumbers('explosion', { start: 0, end: 11, first: 11 }),
-        frameRate: 20,
-        repeat: 0
-     };
-
-     this.anims.create(config);
-
-     //hitfunction
-     var ex1 = this.add.sprite(300,300,'BallDeb');
-     this.physics.add.collider(rocket, ex1, hitSat, null, this);
-
-     function hitSat (rocket, ex1){
-       rocket.setTint(0xff0000);
-       rocket.play('explodeAnimation')
-       rocket.disableBody(true,true);
-     }
-
-
-
-     this.add.sprite(300,300,'BallDeb').play('explodeAnimation');
-
-
 
 
   }
 
-  update(){
+
 
 }
