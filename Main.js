@@ -241,6 +241,37 @@ class Exemple1 extends Phaser.Scene {
       Phaser.Actions.RotateAround(player1.getChildren(), { x: 645, y: 290 }, Phaser.Math.Between(0.001,3.14));
       Phaser.Actions.RotateAround(player2.getChildren(), { x: 645, y: 290 }, Phaser.Math.Between(0.001,3.14));
   }
+
+/*
+  //Game Over message
+  
+  var ui_camera;
+  var center = this.add.image(400, 300);
+  var govertext = this.add.text(400,300,'Game Over!').setOrigin(0.5);
+  var ui_camera = this.cameras.add().setScroll(0,1000);
+
+  this.cameras.main.ignore(govertext);
+  ui_camera.ignore(center);
+
+    var timeline = this.tweens.timeline({
+
+      tweens: [{
+          targets: ui_camera,
+          zoom :2,
+          scrollY: 0,
+          duration: 2000,
+          ease: 'Sine.easeInOut'
+      },
+      {
+          targets: ui_camera,
+          zoom :1,
+          scrollY: 1000,
+          duration: 1000,
+          delay: 1000
+      }]
+  });
+*/  
+
 }
 
 
