@@ -17,6 +17,7 @@ class Exemple1 extends Phaser.Scene {
     this.load.image('BallDeb','assets/BallDebris.png')
     this.load.image('MetalScrap','assets/MetalPaint.png')
     this.load.image('rocket','assets/Rocket1_1.png')
+    this.load.image('astronaut','assets/astronout_2--pixilart.png')
 
   }
 
@@ -65,6 +66,8 @@ class Exemple1 extends Phaser.Scene {
 
     var metalP = this.add.image(555,63, 'MetalScrap')
     metalP.setScale(0.165);
+
+
 
 /*
     //funzione per coprire la grigliaNord
@@ -193,7 +196,6 @@ class Exemple1 extends Phaser.Scene {
 
    function clickHandler (square)
    {
-
        square.off('clicked', clickHandler);
        square.input.enabled = false;
        square.setVisible(false);
@@ -217,7 +219,13 @@ class Exemple1 extends Phaser.Scene {
   rocket.setRotateToPath(true, 90);
 */
   
-  info = this.add.text(10, 10, 'toto', { font: '100px 8bit-wonder', fill: '#00FF00' });
+  //info = this.add.text(10, 10, 'toto', { font: '100px 8bit-wonder', fill: '#00FF00' });
+  infoTitle = this.add.text(10, 10, '', { font: '30px Courier', fill: '#00FF00' });
+  infoData = this.add.text(10, 45, '', { font: '16px Courier', fill: '#00FF00' });
+  infoTrivia = this.add.text(40, 740, 'Click on a debris to get information on it.', { font: '16px Courier', fill: '#00FF00' });
+  var miniAstronaut = this.add.image(15, 740, 'astronaut')
+  miniAstronaut.setScale(2);
+
 
   rocket = this.add.group();
   rocket.create(750,290,'rocket',0);
@@ -289,9 +297,30 @@ class Exemple1 extends Phaser.Scene {
     Phaser.Actions.RotateAround(player1.getChildren(), { x: 645, y: 290 }, 0.002);
     Phaser.Actions.RotateAround(player2.getChildren(), { x: 645, y: 290 }, 0.002);
 
-    group.getChildren()[0].on('pointerdown', function (pointer) {
-      info.setText('This is a debris.');
-    });
+    var selectedSatellites = group.getChildren()
+    for (var i = selectedSatellites.length - 1; i >= 0; i--) {
+      selectedSatellites[i].on('pointerdown', function (pointer) {
+        infoTitle.setText('Data')
+        infoData.setText([
+          'Debris type: ' + 'Satellite debris',
+          'Dimensions: ' + '36cm x 56cm',
+          'Mass: ' + '56kg',
+          'Average speed: ' + '7600m/s',
+          'Materials: ' + 'aluminum, nickel',
+          'Orbit: ' + 'Low Earth Orbit (LEO)'
+        ]);
+        infoTrivia.setPosition(40, 640, 0);
+        infoTrivia.setText([
+          '- The debris dimensions range from',
+          'a few millimeters up to a meter.',
+          '- NASA estimates at 500,000 the number',
+          'of debris measuring approx. 1 cm.',
+          '- The Low Earth Orbit ranges from 300',
+          "to 2000km above the Earth's surface. ",
+          "It is where we find most of spatial debris."
+        ]);
+      });
+    }
 
   }
 

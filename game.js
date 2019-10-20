@@ -26,6 +26,8 @@ var player;
 var player1;
 var player2;
 
-var info;
+var infoTitle;
+var infoData;
+var infoTrivia;
 
 var game = new Phaser.Game(config);
