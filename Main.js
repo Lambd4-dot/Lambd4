@@ -11,7 +11,7 @@ class Exemple1 extends Phaser.Scene {
     this.load.image('satellite2','assets/Tess_nasa.png')
     this.load.image('BallDeb','assets/BallDeb_resize.png')
     this.load.image('MetalScrap','assets/MetalScrap_res.png')
-    this.load.image('AlScrap','assets/AlumDebr1.png')
+    this.load.image('AlScrap','assets/Alum_Deb.png')
     this.load.image('Genesis','assets/Genesis2.png')
     this.load.image('rocket','assets/Rocket1_1.png')
     this.load.spritesheet('explosion', 'assets/GrayEx3.png', { frameWidth: 40, frameHeight: 40, endFrame: 11 });
@@ -257,15 +257,18 @@ class Exemple1 extends Phaser.Scene {
       group.create(Phaser.Math.Between(150,650), Phaser.Math.Between(70,220), 'satellite1', Phaser.Math.Between(0,4)).setInteractive();
       player.create(Phaser.Math.Between(150,650), Phaser.Math.Between(520,700), 'satellite2', Phaser.Math.Between(0,4)).setInteractive();
       player1.create(Phaser.Math.Between(100,300), Phaser.Math.Between(400,600), 'MetalScrap', Phaser.Math.Between(0,4)).setInteractive();
-      player2.create(Phaser.Math.Between(670,800), Phaser.Math.Between(100,200), 'BallDeb', Phaser.Math.Between(0,4)).setInteractive();
-      player3.create(Phaser.Math.Between(660,800), Phaser.Math.Between(400,600), 'AlScrap', Phaser.Math.Between(0,4)).setInteractive();
       Phaser.Actions.RotateAround(group.getChildren(), { x: 645, y: 290 }, Phaser.Math.Between(0.001,3.14));
       Phaser.Actions.RotateAround(player.getChildren(), { x: 645, y: 290 }, Phaser.Math.Between(0.001,3.14));
       Phaser.Actions.RotateAround(player1.getChildren(), { x: 645, y: 290 }, Phaser.Math.Between(0.001,3.14));
+  }
+  for (var i = 0; i <100 ; i++)
+  {
       Phaser.Actions.RotateAround(player2.getChildren(), { x: 645, y: 290 }, Phaser.Math.Between(0.001,3.14));
       Phaser.Actions.RotateAround(player3.getChildren(), { x: 645, y: 290 }, Phaser.Math.Between(0.001,3.14));
+      player2.create(Phaser.Math.Between(670,800), Phaser.Math.Between(100,200), 'BallDeb', Phaser.Math.Between(0,4)).setInteractive();
+      player3.create(Phaser.Math.Between(660,800), Phaser.Math.Between(400,600), 'AlScrap', Phaser.Math.Between(0,4)).setInteractive();
   }
-
+  
   //time for animation
 
   var config = {
