@@ -30,4 +30,6 @@ var infoTitle;
 var infoData;
 var infoTrivia;
 
+var moreInfo;
+
 var game = new Phaser.Game(config);

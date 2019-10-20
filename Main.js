@@ -7,18 +7,14 @@ class Exemple1 extends Phaser.Scene {
     //this.load.image('earth1','assets/hearh_1.png')
     this.load.image('space','assets/pixel_space1.png')
     this.load.image('earth','assets/Earth_big_1.png')
-    this.load.image('gridup','assets/darkGridnotModified_1.png')
-    this.load.image('gridleft','assets/darkGridnotModified_2.png')
-    this.load.image('triangolo','assets/triangolo.png')
-    this.load.image('triangolo2','assets/triangolo_2.png')
-    this.load.image('square1','assets/QuadratinoBello.png')
     this.load.image('satellite1','assets/SatelliteLandObs.png')
     this.load.image('satellite2','assets/Tess_nasa.png')
     this.load.image('BallDeb','assets/BallDebris.png')
     this.load.image('MetalScrap','assets/MetalPaint.png')
     this.load.image('rocket','assets/Rocket1_1.png')
     this.load.image('astronaut','assets/astronout_2--pixilart.png')
-
+    this.load.image('astronaut2','assets/miniastronout-pixilart.png')
+    this.load.image('NASA','Logos/Square White.png')
   }
 
 
@@ -32,6 +28,9 @@ class Exemple1 extends Phaser.Scene {
     //this.image = this.add.image(650, 300, 'earth');
     var myEarth = this.add.sprite(650,300,'earth');
     myEarth.setScale(0.55);
+
+    var NASA = this.add.sprite(1440,650,'NASA');
+    NASA.setScale(0.2);
 /*
     var backGrid1 = this.add.image(650,100,'gridup');
     backGrid1.setScale(0.19);
@@ -222,10 +221,10 @@ class Exemple1 extends Phaser.Scene {
   //info = this.add.text(10, 10, 'toto', { font: '100px 8bit-wonder', fill: '#00FF00' });
   infoTitle = this.add.text(10, 10, '', { font: '30px Courier', fill: '#00FF00' });
   infoData = this.add.text(10, 45, '', { font: '16px Courier', fill: '#00FF00' });
-  infoTrivia = this.add.text(40, 740, 'Click on a debris to get information on it.', { font: '16px Courier', fill: '#00FF00' });
-  var miniAstronaut = this.add.image(15, 740, 'astronaut')
+  infoTrivia = this.add.text(40, 725, ['Click on a debris to get information on it.','If you want to know more about space debris, click on me!'], { font: '16px Courier', fill: '#00FF00' });
+  var miniAstronaut = this.add.image(15, 740, 'astronaut').setInteractive();
   miniAstronaut.setScale(2);
-
+  miniAstronaut.on('pointerup', openExternalLink, this);
 
   rocket = this.add.group();
   rocket.create(750,290,'rocket',0);
@@ -283,7 +282,6 @@ class Exemple1 extends Phaser.Scene {
 }
 
 
-
   update(){
     //[rocketOrbitRadius, rocketOrbitPeriod] = updateRocketOrbit(rocketPath,rocketOrbitRadius,rocketOrbitPeriod)
     [rocketOrbitRadius, rocketOrbitPeriod] = updateRocketOrbit(rocketOrbitRadius,rocketOrbitPeriod)
@@ -297,9 +295,9 @@ class Exemple1 extends Phaser.Scene {
     Phaser.Actions.RotateAround(player1.getChildren(), { x: 645, y: 290 }, 0.002);
     Phaser.Actions.RotateAround(player2.getChildren(), { x: 645, y: 290 }, 0.002);
 
-    var selectedSatellites = group.getChildren()
-    for (var i = selectedSatellites.length - 1; i >= 0; i--) {
-      selectedSatellites[i].on('pointerdown', function (pointer) {
+    var selectedSatellites1 = group.getChildren()
+    for (var i = selectedSatellites1.length - 1; i >= 0; i--) {
+      selectedSatellites1[i].on('pointerdown', function (pointer) {
         infoTitle.setText('Data')
         infoData.setText([
           'Debris type: ' + 'Satellite debris',
@@ -309,7 +307,7 @@ class Exemple1 extends Phaser.Scene {
           'Materials: ' + 'aluminum, nickel',
           'Orbit: ' + 'Low Earth Orbit (LEO)'
         ]);
-        infoTrivia.setPosition(40, 640, 0);
+        infoTrivia.setPosition(40, 630, 0);
         infoTrivia.setText([
           '- The debris dimensions range from',
           'a few millimeters up to a meter.',
@@ -317,7 +315,8 @@ class Exemple1 extends Phaser.Scene {
           'of debris measuring approx. 1 cm.',
           '- The Low Earth Orbit ranges from 300',
           "to 2000km above the Earth's surface. ",
-          "It is where we find most of spatial debris."
+          "It is where we find most of spatial debris.",
+          'If you want to know more about space debris, click on me!'
         ]);
       });
     }
